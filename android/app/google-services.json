@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "982426221408",
+    "firebase_url": "https://scanner-e0373-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "scanner-e0373",
+    "storage_bucket": "scanner-e0373.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982426221408:android:6e80a0bc7047086519fc05",
+        "android_client_info": {
+          "package_name": "com.scanner.scanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982426221408-iqebnbavhoms3cqdb924p27hrusnurb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scanner.scanner",
+            "certificate_hash": "8fee446936bab4e50366966fbf1945eb130b049a"
+          }
+        },
+        {
+          "client_id": "982426221408-r65krpnskub0k4u72vh1k3kh7f91k9co.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTxOjjeq4t1U-302vp9RY-Og2tRO1wSI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982426221408-r65krpnskub0k4u72vh1k3kh7f91k9co.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
