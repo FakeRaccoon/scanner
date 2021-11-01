@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scanner/home.dart';
+import 'package:scanner/Screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -51,6 +51,7 @@ class _LoginState extends State<Login> {
                   Text('Login', style: GoogleFonts.openSans(fontWeight: FontWeight.bold, fontSize: 22)),
                   SizedBox(height: 20),
                   TextFormField(
+                    cursorColor: Colors.grey[900],
                     validator: (String value) {
                       if (value.isEmpty) {
                         return 'username tidak boleh kosong';
@@ -84,19 +85,36 @@ class _LoginState extends State<Login> {
                         )),
                   ),
                   SizedBox(height: 20),
-                  ButtonTheme(
-                    minWidth: MediaQuery.of(context).size.width,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    height: 40,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  // ButtonTheme(
+                  //   minWidth: MediaQuery.of(context).size.width,
+                  //   splashColor: Colors.transparent,
+                  //   highlightColor: Colors.transparent,
+                  //   height: 40,
+                  //   child: FlatButton(
+                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  //     onPressed: () {
+                  //       if (_key.currentState.validate()) {
+                  //         loginTest(usernameController.text, passController.text);
+                  //       }
+                  //     },
+                  //     color: Colors.grey[900],
+                  //     child: Text(
+                  //       'Login',
+                  //       style: GoogleFonts.sourceSansPro(color: Colors.white, fontWeight: FontWeight.bold),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    width: Get.width,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.grey[900],
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                       onPressed: () {
                         if (_key.currentState.validate()) {
                           loginTest(usernameController.text, passController.text);
                         }
                       },
-                      color: Colors.grey[900],
                       child: Text(
                         'Login',
                         style: GoogleFonts.sourceSansPro(color: Colors.white, fontWeight: FontWeight.bold),
@@ -115,12 +133,12 @@ class _LoginState extends State<Login> {
   }
 
   loginTest(String username, String password) async {
-    // String localUrl = 'http://192.168.5.80:8000/api/login';
-    String localUrl = apiUrl + 'api/login';
+    // // String localUrl = 'http://192.168.5.80:8000/api/login';
+    // String localUrl = apiUrl + 'api/login';
     try {
-      final response = await Dio().post(localUrl, data: {
-        'username': username,
-        'password': password,
+      final response = await Dio().post(apiUrl + 'api/login', data: {
+        'username': username.trim(),
+        'password': password.trim(),
       });
       if (response.statusCode == 200) {
         print(response.data['result']);
@@ -131,13 +149,25 @@ class _LoginState extends State<Login> {
           data['name'],
           data['token'],
           data['role'],
-        ).then((value) => Center(child: CircularProgressIndicator())).whenComplete(() {
+        )
+            .then(
+          (value) => Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.black,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+            ),
+          ),
+        )
+            .whenComplete(() {
           Get.offAll(() => Home());
         });
       }
     } on DioError catch (e) {
+      print(e.message);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.response.statusMessage),
+        behavior: SnackBarBehavior.floating,
+        content:
+            Text('Username atau password anda salah', style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.red,
       ));
     }

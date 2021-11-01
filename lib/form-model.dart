@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-List<FormResult> formResultFromJson(String str) => List<FormResult>.from(json.decode(str).map((x) => FormResult.fromJson(x)));
+List<FormResult> formResultFromJson(String str) =>
+    List<FormResult>.from(json.decode(str).map((x) => FormResult.fromJson(x)));
 
 String formResultToJson(List<FormResult> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
@@ -14,6 +15,7 @@ class FormResult {
     this.status,
     this.task,
     this.otherTask,
+    this.note,
     this.tax,
     this.billing,
     this.requestDate,
@@ -31,11 +33,12 @@ class FormResult {
   int status;
   int task;
   int otherTask;
+  String note;
   int tax;
   int billing;
   DateTime requestDate;
   DateTime pickUpDate;
-  dynamic receivedDate;
+  DateTime receivedDate;
   List<Transaction> transactions;
   List<OtherTransaction> otherTransactions;
   User fromUser;
@@ -48,13 +51,14 @@ class FormResult {
         status: json["status"] == null ? null : json["status"],
         task: json["task"] == null ? null : json["task"],
         otherTask: json["other_task"] == null ? null : json["other_task"],
+        note: json["note"] == null ? null : json["note"],
         tax: json["tax"] == null ? null : json["tax"],
         billing: json["billing"] == null ? null : json["billing"],
         fromUser: json["from_user"] == null ? null : User.fromJson(json["from_user"]),
         toUser: json["to_user"] == null ? null : User.fromJson(json["to_user"]),
         requestDate: json["request_date"] == null ? null : DateTime.parse(json["request_date"]),
         pickUpDate: json["pick_up_date"] == null ? null : DateTime.parse(json["pick_up_date"]),
-        receivedDate: json["received_date"],
+        receivedDate: json["received_date"] == null ? null : DateTime.parse(json["received_date"]),
         transactions: json["transactions"] == null
             ? null
             : List<Transaction>.from(json["transactions"].map((x) => Transaction.fromJson(x))),
@@ -70,15 +74,17 @@ class FormResult {
         "status": status == null ? null : status,
         "task": task == null ? null : task,
         "other_task": otherTask == null ? null : otherTask,
+        "note": note == null ? null : note,
         "tax": tax == null ? null : tax,
         "billing": billing == null ? null : billing,
         "from_user": fromUser == null ? null : fromUser.toJson(),
         "to_user": toUser == null ? null : toUser.toJson(),
         "request_date": requestDate == null ? null : requestDate.toIso8601String(),
         "pick_up_date": pickUpDate == null ? null : pickUpDate.toIso8601String(),
-        "received_date": receivedDate,
+        "received_date": receivedDate == null ? null : receivedDate.toIso8601String(),
         "transactions": transactions == null ? null : List<dynamic>.from(transactions.map((x) => x.toJson())),
-        "other_transactions": otherTransactions == null ? null : List<dynamic>.from(otherTransactions.map((x) => x.toJson())),
+        "other_transactions":
+            otherTransactions == null ? null : List<dynamic>.from(otherTransactions.map((x) => x.toJson())),
         "created_at": createdAt == null ? null : createdAt.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
       };
@@ -93,6 +99,7 @@ class Transaction {
     this.selected,
     this.selected1,
     this.selected2,
+    this.toUser,
     this.createdAt,
     this.updatedAt,
   });
@@ -104,6 +111,7 @@ class Transaction {
   int selected2;
   int type;
   bool selected1;
+  User toUser;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -115,6 +123,7 @@ class Transaction {
         selected: json["selected"] == null ? null : json["selected"],
         selected2: json["selected2"] == null ? null : json["selected2"],
         selected1: false,
+        toUser: json["to_user"] == null ? null : User.fromJson(json["to_user"]),
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
@@ -129,6 +138,7 @@ class Transaction {
         "selected1": selected1,
         "created_at": createdAt == null ? null : createdAt.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "to_user": toUser == null ? null : toUser.toJson(),
       };
 }
 

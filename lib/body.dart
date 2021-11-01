@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:scanner/home.dart';
+import 'package:scanner/Screens/home.dart';
 import 'package:scanner/notification-page.dart';
 import 'package:scanner/user-page.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scanner/home.dart';
+import 'package:scanner/Screens/home.dart';
 import 'package:scanner/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,12 +12,11 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkLogin();
   }
 
-  Future checkLogin() async {
+  void checkLogin() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     if (sp.getString('role') == null) {
       Get.offAll(() => Login());
@@ -30,7 +29,10 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.black,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+        ),
       ),
     );
   }
